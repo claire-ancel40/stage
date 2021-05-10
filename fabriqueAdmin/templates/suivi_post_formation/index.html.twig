@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Suivi Post-Formation{% endblock %}
+{% block stylesheets %}      
+<link rel="stylesheet" href="{{ asset("assets/css/statEvolution.css") }}">
+{% endblock %}
+
+{% block body %}
+{% if app.user %}
+
+
+
+    <div class="container-fluid">
+        
+        <div class="row">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto mb-5 mt-5">
+                {% include "suivi_post_formation/_nav_suivi_post_formation.html.twig" with {'p':1} %}
+                {# {{ dump(promotions) }}  #}
+                <section>
+                <div class="styled">
+                    <form method="POST">
+                        <select name="formation" id="selectFormations">
+                            <option value="0">-----------</option>  
+                            {# mettre une boucle our afficher les options #}
+                            {% for formation in formations %}
+                                <option value={{formation.id}}>{{formation.intitule}}</option>
+                            {% endfor %}
+                            ....              
+                        </select>
+                        
+                        <select name="promotions" id="selectPromotions"></select>
+
+                        <input class="filter" href="" type="submit" value="Filtrer"/>
+                        {# {{ dump(formations) }} #}                       
+                        
+                    </form>                     
+                    
+                </div> 
+                
+                <div class="my-5">
+                    {# pour afficher le flash message #}
+                    {% include "template_parts/_flash_message.html.twig" %}
+                    {#{{ dump(postFormations) }}#}
+                    <!-- formulaire de recherche -->
+                    <article class="chercher">
+                        <form action="{{ path('editor_apprenant_chercher')}}" class="  ml-auto w-50 bg-info">
+                            <input class="float-right form-group mr-2 " placeholder="chercher" type="text" name="chercher_apprenant">
+                            <button class=" badge badge-primary mr-2" type="submit"><i
+                                class="fa fa-search "></i></button>
+                        </form>
+                    </article>  
+                    {# {{ dump(apprenants) }} #}
+                    <table class="table table-hover">                        
+                        <thead class="">
+                            <tr >
+                                <th scope="col" style="width: 15%;">Apprenant</th>
+                                {% for postFormation in postFormations %}
+                                <th scope="col" style="width: 10%;">{{postFormation.periode}}</th>
+                                
+                                {% endfor %}                           
+                                {# {{ dump(apprenants[0].situationApprenantPeriodes[0]) }}     #}
+                                
+                            </tr>
+                        </thead>
+                        
+                        <tbody> 
+                            {% for apprenant in apprenants %}
+                            <tr>
+                                <td>{{ apprenant.Fullname }}</td>
+                                
+                                {% for key,postFormation in postFormations %}
+                                <td>
+                                    {% for situationApprenantPeriodes in apprenant.situationApprenantPeriodes %}
+                                    {# {{situationApprenantPeriodes.situation.id}}  #}
+                                    
+                                    {% if situationApprenantPeriodes.periode.id == postFormation.id %}
+                                    {{situationApprenantPeriodes.situation.situation}}
+                                    
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                </td>
+                                
+                                {% endfor %}
+                                
+                            </tr>                            
+                            {% endfor %}
+                            
+                            
+                        </tbody>
+                        
+                        
+                    </table>
+                </div>             
+                </section>
+                
+                <section class="tauxRetour">
+                              
+                    <h4 class="titre">Taux de retour à l'emploi par formation</h4>
+                    <article class="groupeA">
+                      <div class="A">
+                          <div class="cercleA"></div>
+                          <div class="triangleA"></div>
+                      </div>
+                      <div class="C">
+                          <div class="cercleC"></div>
+                          <div class="triangleC"></div>
+                      </div>
+                  </article>
+                    
+                    <table class="barreEvolution">
+                        <tr>
+                          <td class="type">Formation</td>
+                          <td class="trois">3 mois</td>
+                          <td class="six">6 mois</td>
+                          <td class="neuf">9 mois</td>
+                          <td class="douze">12 mois</td>
+                      </tr>
+                  </table>
+                  <article class="groupeB">
+                      <div class="B">
+                          <div class="triangleB"></div>
+                          <div class="cercleB"></div>
+                      </div>
+                      <div class="D">
+                          <div class="triangleD"></div>
+                          <div class="cercleD"></div>
+                      </div>
+                  </article>
+                </section>       
+            </div>
+        </div>
+    </div>
+            
+
+
+{% endif %} 
+
+<!-- pagination -->
+<article class="paginer"> 
+    {{knp_pagination_render(apprenants)}}
+    
+</article>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('assets/js/suiviPostFormation.js')}}">       
+              
+    </script>
+    
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Formulaire de suivi{% endblock %}
+
+{% block stylesheets %}      
+<link rel="stylesheet" href="{{ asset("assets/css/formulaireSuivi.css") }}">
+{% endblock %}
+
+{% block body %}
+{% if app.user %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto mb-3 mt-5">
+            <div class="my-5">
+                {% include "suivi_post_formation/_nav_suivi_post_formation.html.twig" with {'p':1} %}
+                <section class="saisir">
+                    <article class="connaitre">
+                        Quelle est votre situation professionnelle 3 mois après votre formation?
+                    </article>
+                    <article class="activite">
+                        <div> 
+                            <input type="radio" id="dewey" name="drone" value="huey"checked>
+                            <label for="huey">Activité</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="dewey" name="drone" value="dewey">
+                            <label for="dewey">Formation</label>
+                        </div>
+                    </article>
+                    <article class="styled"> 
+                        <select name="activite" id="selectActivites"> #}
+                            <option value="0">-----------</option>   #}
+                                {# mettre une boucle our afficher les options #}
+                                {# {% for situation in situations %}
+                            <option value={{situations.id}}>{{situations.situation}}</option>
+                                {% endfor %} #}
+                                ....              
+                        </select> 
+                                                             
+                        <select name="formation" id="selectformations">
+                            <option value="0">-----------</option>   #}
+                                    {# mettre une boucle our afficher les options #}
+                                    {# {% for situation in situations %}
+                            <option value={{situations.id}}>{{situations.situation}}</option>
+                                    {% endfor %} #}
+                        </select> 
+
+                    </article>
+                    
+                </section>
+
+                <section class="saisir">
+                    <article class="connaitre">
+                        Quelle est votre situation professionnelle 3 mois après votre formation?
+                    </article>
+                    <article class="activite">
+                        <div> 
+                            <input type="radio" id="dewey" name="drone" value="huey"checked>
+                            <label for="huey">Activité</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="dewey" name="drone" value="dewey">
+                            <label for="dewey">Formation</label>
+                        </div>
+
+                        <div>
+                            <input type="radio" id="dewey" name="drone" value="dewey">
+                            <label for="dewey">Sans emploi</label>
+                        </div>
+                    </article>
+                    <article class="styled"> 
+                        <select name="activite" id="selectActivites"> #}
+                            <option value="0">-----------</option>   #}
+                                {# mettre une boucle our afficher les options #}
+                                {# {% for situation in situations %}
+                            <option value={{situations.id}}>{{situations.situation}}</option>
+                                {% endfor %} #}
+                                ....              
+                        </select> 
+                                                             
+                        <select name="formation" id="selectformations">
+                            <option value="0">-----------</option>   #}
+                                    {# mettre une boucle our afficher les options #}
+                                    {# {% for situation in situations %}
+                            <option value={{situations.id}}>{{situations.situation}}</option>
+                                    {% endfor %} #}
+                        </select> 
+
+                    </article>
+                </section>
+            </div>         
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}
